@@ -2,6 +2,7 @@
 const express = require('express')
 const app = express()
 const port = 3000;
+const db = require('./db');
 
 let variables = [];
 
@@ -92,7 +93,11 @@ app.get('/arduino', (req, res) => {
 				"timestamp": Date.now(),			
 				"name": verified.name
 			});
-			
+			let sql = 'INSERT INTO empresa_test (nombre) VALUES ("' + verified.name + '")';
+			db.con.query(sql, function (err, result) {
+				if (err) throw err;
+    			console.log("1 record inserted");
+			})
 		}
 
 		res.json({
@@ -132,7 +137,7 @@ function verify(query) {
 
 	let registered = [
 		{
-			"id": "",
+			"id": "491da5a",
 			"name": "Paty"
 		},
 		{
@@ -144,7 +149,7 @@ function verify(query) {
 			"name": "Mary"
 		},
 		{
-			"id": "",
+			"id": "f9eadb5a",
 			"name": "Diana"
 		}
 	];
@@ -198,10 +203,13 @@ function verify(query) {
 			}
 
 		}
-
 	}
 	
-				
+	return {
+		"status" : false,
+		"msg"    : "Usuario no valido",
+		"name"   : ''
+	}			
 	
 
 
