@@ -1,0 +1,79 @@
+const express = require('express')
+const app = express()
+const port = 3000;
+
+let variables = [];
+
+app.use(express.urlencoded({
+  extended: true
+}))
+
+app.get('/', (req, res) => {
+  res.send('Hello World crajo!')
+})
+
+app.get('/data', (req, res) => {
+  res.json({"length": variables.length,
+             "data": variables})
+
+})
+
+/*
+domain/api?qwerty=asdfg
+*/
+app.get('/api', (req, res) => {
+	let query = req.query;
+
+	if(variables.length >= 100){
+		variables.shift();
+	}
+
+	let data = variables.push({
+			"timestamp": Date.now(),
+			"query":query,
+			"status": verify(query)
+		  });
+
+  res.json({"length": variables.length,
+             "data": variables})
+})
+
+/*
+domain/api/texto
+*/
+app.get('/api/:texto', (req, res) => {
+	let params = req.params;
+
+	if(variables.length >= 100){
+		variables.shift();
+	}
+
+	let data = variables.push({
+			"timestamp": Date.now(),
+			"params":params
+		  });
+
+  res.json({"length": variables.length,
+             "data": variables})
+})
+
+
+app.post('/api', (req, res) => {
+	let body = req.body.name;
+
+	res.json({"name":body});
+})
+
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`)
+})
+
+function verify(query) {
+
+	if(typeof query.numero_identificacion != "undefined"){
+		
+		return "true";
+	}else{
+		return "false";
+	}
+}

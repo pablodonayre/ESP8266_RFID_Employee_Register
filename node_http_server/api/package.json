@@ -1,0 +1,14 @@
+{
+	"name": "test",
+	"version": "1.0.0",
+	"description": "for testing node container",
+	"main": "index.js",
+	"scripts": {
+		"start": "node index.js"
+	},
+	"author": "Juan Pablo Donayre",
+	"license": "ISC",
+	"dependencies": {
+		"express": "^4.17.1"
+	}
+}

@@ -1,0 +1,2 @@
+
+GET http://159.65.185.107/arduino?api_key=Ab123456789&numero_identificacion=7980d55a HTTP/1.1

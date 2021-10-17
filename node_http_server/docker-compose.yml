@@ -1,0 +1,13 @@
+version: "3"
+services:
+    node:
+        image: "node:14"
+        restart: "unless-stopped"
+        user: "node"
+        working_dir: "/home/node/app"
+        volumes:
+            - "./api:/home/node/app"
+        ports:
+            - "80:3000"
+        command: "npm start"
+        # command: "node index.js"
