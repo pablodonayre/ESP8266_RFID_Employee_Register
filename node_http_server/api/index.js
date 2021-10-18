@@ -16,13 +16,34 @@ app.get('/', (req, res) => {
 
 app.get('/data', (req, res) => {
 
-	res.json({
-		"length": variables.length,
-		"data": variables
+	let sql = 'SELECT CONCAT(CONVERT_TZ(fecha, "+00:00","-05:00"), " ") as fecha, nombre FROM empresa_test';
+	db.con.query(sql, function (err, result) {
+		if (err) throw err;
+		console.log('result', result)
+		res.json({
+			"length": result.length,
+			"data": result
+		})
 	})
+	// res.json({
+	// 	"length": variables.length,
+	// 	"data": variables
+	// })
 
 })
 
+app.get('/diana', (req, res) => {
+
+	let sql = 'SELECT CONCAT(CONVERT_TZ(fecha, "+00:00","-05:00"), " ") as fecha, nombre FROM empresa_test WHERE nombre = "Diana"';
+	db.con.query(sql, function (err, result) {
+		if (err) throw err;
+		console.log('result', result)
+		res.json({
+			"length": result.length,
+			"data": result
+		})
+	})
+})
 /*
 domain/api?qwerty=asdfg
 */
